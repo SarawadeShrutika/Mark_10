@@ -3,24 +3,44 @@ const checkbutton=document.querySelector("#Check");
 const cashGiven=document.querySelector("#Cash-given");
 const errormessage=document.querySelector("#error-message");
 
+const NoOfNotes=document.querySelectorAll(".No-of-Notes");
+
+const availableNotes=[2000,500,100,20,10,5,1];
+
 checkbutton.addEventListener("click",()=>
 {
-    errormessage.display="none";
+    hide_message();
     if(bill_amount.value>0)
     {
-        if(bill_amount.value>=0)
+        if(cashGiven.value>=bill_amount.value)
         {
-
+          const amountToBeReturn=cashGiven.value-bill_amount.value;
+          calcualteChange(amountToBeReturn);
         }else{
-            
+            showMessage("The cash provided should atleast be equal to the bill amount");
         }
-        console.log("cool");
     }else{
-      errormessage.style.display="block";
-      errormessage.innerText="The bill amount should be greater than 0";
+      showMessage("Invalid Bill Amount");
     }
+});
+
+function hide_message(){
+  errormessage.style.display="none";
+}
+
+function showMessage(message){
+  errormessage.style.display="block";
+  errormessage.innerText=message;
 }
 
 
+function calcualteChange(amountToBeReturn){
 
-);
+    for(let i=0;i<availableNotes.length;i++)
+    {
+      const numberofNotes=Math.trunc(amountToBeReturn/availableNotes[i]);
+      amountToBeReturn %=availableNotes[i];
+      NoOfNotes[i].innerText=numberofNotes;
+    }
+    
+}
