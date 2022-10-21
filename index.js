@@ -12,12 +12,16 @@ checkbutton.addEventListener("click",()=>
     hide_message();
     if(bill_amount.value>0)
     {
-        if(cashGiven.value>=bill_amount.value)
+        if(cashGiven.value>bill_amount.value)
         {
           const amountToBeReturn=cashGiven.value-bill_amount.value;
           calcualteChange(amountToBeReturn);
-        }else{
+        }
+        else if(cashGiven.value<bill_amount.value){
             showMessage("The cash provided should atleast be equal to the bill amount");
+        }
+        else{
+          showMessage("The cash provided is equal to the given bill amount.");
         }
     }else{
       showMessage("Invalid Bill Amount");
